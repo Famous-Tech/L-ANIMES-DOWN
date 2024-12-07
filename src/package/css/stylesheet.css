@@ -1,33 +1,37 @@
+/* styles.css */
 QWidget {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
 }
 
 #main_window {
-    background-color: rgba(240,240,240,0.5); 
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px;
 }
-
 
 #left_widget {
-    background-color: rgb(240,240,240); 
-    border-radius : 10px ; 
-    padding : 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 #mHeader {
     font-weight: bold;
     font-size: 15px;
+    color: #333333;
 }
 
 #mRightWidget {
-    background-color: rgba(240,240,240,0.5); 
-    border-radius: 10px; 
+    background-color: #f0f0f0;
+    border-radius: 10px;
     padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #mLoadingButton {
-    border:none;
+    border: none;
     background-color: transparent;
 }
 
@@ -35,19 +39,33 @@ QWidget {
     font-weight: bold;
     font-size: 12px;
     font-style: italic;
+    color: #555555;
 }
 
 #chapitersWidget {
-    background-color: rgb(240,240,240);
+    background-color: #ffffff;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #chapitersListWidget {
-    border:none;
+    border: none;
     padding: 10px 0;
 }
 
-
 #buttonsWidget:disabled {
-    color : black
+    color: black;
+}
+
+QProgressBar {
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+QProgressBar::chunk {
+    background-color: #4caf50;
+    width: 10px;
+    margin: 0.5px;
 }
