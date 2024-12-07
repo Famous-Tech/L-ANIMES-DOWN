@@ -1,13 +1,4 @@
-import re
-from functools import partial
-
 from PySide6 import QtWidgets, QtCore
-
-
-from package.python.widgets.TManager import TSamaFethingsAll ,TAnimeContentScrapper , TChapitersScrapper
-from package.python.widgets import MWidget
-from package.python.api.constant import STYLE_PATH
-from package.python.api.asscrapper import AnimeSamaAScrapper
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -55,9 +46,11 @@ class MainWindow(QtWidgets.QWidget):
         self.short_desc = MWidget.MInfoLabel()
         self.short_info = MWidget.MInfoLabel()
         
-        
-        
-        
+        # Ajout de la barre de progression
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setRange(0, 100)
+        self.progress_bar.setValue(0)
+
     def modify_widgets(self):
         # Modification des widgets de gauche
         self.title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop | QtCore.Qt.AlignmentFlag.AlignLeft)
@@ -161,6 +154,9 @@ Merci de signaler tout bug rencontré sur l'application.
         self.right_layout.addWidget(self.short_desc)
         self.right_layout.addWidget(self.short_info)
 
+        # Ajout de la barre de progression
+        self.right_layout.addWidget(self.progress_bar)
+
         # Ajout des layouts au layout 
         leftWidget =  QtWidgets.QWidget()
         leftWidget.setLayout(self.left_layout)
@@ -188,6 +184,11 @@ Merci de signaler tout bug rencontré sur l'application.
         self.search_bar.textChanged.connect(self.filter_anime)
         self.anime_list.itemClicked.connect(self.load_item_content)
         self.content_list.itemClicked.connect(partial(self.show_chapiters_in_right_widget,force_reload=False))
+
+        # Connexion de la barre de progression
+        self.anime_sama_fething.progress_signal.connect(self.update_progress_bar)
+        self.anime_content_fething.progress_signal.connect(self.update_progress_bar)
+        self.chapitre_scrapper.progress_signal.connect(self.update_progress_bar)
 
     def fetch_anime_list(self):
         self.disable_all()
@@ -312,3 +313,6 @@ Merci de signaler tout bug rencontré sur l'application.
             
         self.chapiters_widget.loading_button.stop_loading()
         self.enable_all()
+
+    def update_progress_bar(self, progress):
+        self.progress_bar.setValue(int(progress))
